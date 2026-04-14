@@ -36,6 +36,39 @@ app.post("/notes", (req, res) => {
     });
 });
 
+app.put("/notes/:id", (req, res) => {
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    if (!title || !content) {
+        return res.status(400).json({ error: "Title and content are required" });
+    }
+
+    db.run("UPDATE notes SET title = ?, content = ? WHERE id = ?", [title, content, id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: "Failed to update note" });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: "Note not found" });
+        }
+        res.json({ id: Number(id), title, content });
+    });
+});
+
+app.delete("/notes/:id", (req, res) => {
+    const { id } = req.params;
+
+    db.run("DELETE FROM notes WHERE id = ?", [id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: "Failed to delete note" });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: "Note not found" });
+        }
+        res.json({ message: "Note deleted successfully" });
+    });
+});
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
