@@ -79,3 +79,8 @@ body {
 .note-item:hover {
   background-color: #333;
 }
+
+.note-item.active {
+  background-color: #444;
+  border-left: 4px solid #aa3bff;
+}
