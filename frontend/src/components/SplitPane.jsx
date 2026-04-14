@@ -3,12 +3,12 @@ import NotesList from './NotesList';
 import Editor from './Editor';
 import Preview from './Preview';
 
-const SplitPane = () => {
+const SplitPane = ({ markdownText, setMarkdownText }) => {
   return (
     <div className="split-pane">
       <NotesList />
-      <Editor />
-      <Preview />
+      <Editor text={markdownText} setText={setMarkdownText} />
+      <Preview text={markdownText} />
     </div>
   );
 };

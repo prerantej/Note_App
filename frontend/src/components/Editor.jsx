@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Editor = () => {
-  const [text, setText] = useState('');
-
+const Editor = ({ text, setText }) => {
   return (
     <div className="editor-pane">
       <textarea
